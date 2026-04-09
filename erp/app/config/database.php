@@ -7,8 +7,8 @@ class Database {
     private function __construct() {
         $host = 'localhost';
         $db   = 'Mini_ERP';          // cambiar si tu BBDD tiene otro nombre
-        $user = 'root';
-        $pass = '';
+        $user = 'Alfredo';
+        $pass = 'Alfredo123!';
         $charset = 'utf8mb4';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -29,3 +29,5 @@ class Database {
         return self::$instance->pdo;
     }
 }
+
+//  admin@erp.com admin123

@@ -15,16 +15,16 @@ class Client {
     public static function create($data) {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("
-            INSERT INTO clients (user_id, name, tax_id, email, phone, adress)
+            INSERT INTO clients (user_id, name, tax_id, email, phone, address) 
             VALUES (?, ?, ?, ?, ?, ?)
-        ");
+        "); // <-- Corregido address
         return $stmt->execute([
             $data['user_id'],
             $data['name'],
             $data['tax_id'],
             $data['email'],
             $data['phone'],
-            $data['adress']
+            $data['address'] // <-- Corregido
         ]);
     }
 

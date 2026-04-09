@@ -4,6 +4,7 @@ class User {
     public static function findByEmail($email) {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]); // ¡ESTA ES LA LÍNEA QUE FALTABA!
         return $stmt->fetch();
     }
 
@@ -12,12 +13,14 @@ class User {
         $stmt = $pdo->prepare("
             INSERT INTO users (name, email, password) VALUES (?,?,?)
         ");
-        return $stms->execute([
+        // ¡CORREGIDO: era $stmt, no $stms!
+        return $stmt->execute([
             $name,
             $email,
             password_hash($password, PASSWORD_DEFAULT)
         ]);
     }
+    
     public static function all() {
         $pdo = Database::getConnection();
         return $pdo->query("
