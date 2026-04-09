@@ -52,4 +52,55 @@ class Budget {
             $item['total']
         ]);
     }
+    public static function find($id, $user_id) {
+    $pdo = Database::getConnection();
+    $stmt = $pdo->prepare("
+        SELECT * FROM budgets
+        WHERE id = ? AND user_id = ?
+    ");
+    $stmt->execute([$id, $user_id]);
+    return $stmt->fetch();
+}
+
+    public static function items($budget_id) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT * FROM budget_items
+            WHERE budget_id = ?
+        ");
+        $stmt->execute([$budget_id]);
+        return $stmt->fetchAll();
+    }
+
+    public static function updateTotals($id, $subtotal, $vat_total, $total) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE budgets
+            SET subtotal = ?, vat_total = ?, total = ?
+            WHERE id = ?
+        ");
+        return $stmt->execute([$subtotal, $vat_total, $total, $id]);
+    }
+
+    public static function changeStatus($id, $user_id, $status) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE budgets
+            SET status = ?
+            WHERE id = ? AND user_id = ?
+        ");
+        return $stmt->execute([$status, $id, $user_id]);
+    }
+
+    public static function findWithClient($id, $user_id) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT b.*, c.name AS client_name, c.email, c.tax_id
+            FROM budgets b
+            JOIN clients c ON c.id = b.client_id
+            WHERE b.id = ? AND b.user_id = ?
+        ");
+        $stmt->execute([$id, $user_id]);
+        return $stmt->fetch();
+    }
 }

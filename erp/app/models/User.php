@@ -18,4 +18,28 @@ class User {
             password_hash($password, PASSWORD_DEFAULT)
         ]);
     }
+    public static function all() {
+        $pdo = Database::getConnection();
+        return $pdo->query("
+            SELECT id, name, email, role, active, created_at
+            FROM users
+            ORDER BY created_at DESC
+        ")->fetchAll();
+    }
+
+    public static function changeRole($id, $role) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE users SET role = ? WHERE id = ?
+        ");
+        return $stmt->execute([$role, $id]);
+    }
+
+    public static function changeStatus($id, $active) {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE users SET active = ? WHERE id = ?
+        ");
+        return $stmt->execute([$active, $id]);
+    }
 }
