@@ -1,0 +1,42 @@
+/* ===== ESTILOS BASE DEL ERP ===== */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Títulos */
+h2 {
+    font-weight: 600;
+}
+
+/* Tablas */
+.table {
+    background-color: #fff;
+}
+
+.table th {
+    vertical-align: middle;
+}
+
+/* Cards del dashboard */
+.card h3 {
+    margin: 0;
+}
+
+/* Formularios */
+.form-control,
+.form-select {
+    border-radius: 0.375rem;
+}
+
+/* Botones */
+.btn {
+    border-radius: 0.375rem;
+}
+
+/* Footer */
+footer {
+    color: #6c757d;
+}
